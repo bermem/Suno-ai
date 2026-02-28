@@ -1,158 +1,204 @@
 <!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Stable PRO v6 – Thai Chart AI Strategy Engine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DNA Song Generator PRO v3</title>
+
 <style>
 body{
-  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  font-family: Arial, sans-serif;
+  font-family:Arial;
+  background:#0f0f14;
   color:white;
-  text-align:center;
-  padding:30px;
+  padding:20px;
 }
-h1{font-size:28px;}
 input,select,button,textarea{
-  width:90%;
-  max-width:650px;
-  padding:12px;
-  margin:10px;
+  width:100%;
+  padding:10px;
+  margin:8px 0;
   border-radius:10px;
   border:none;
-  font-size:16px;
 }
 button{
-  background:#00ffcc;
+  background:#ff0077;
+  color:white;
+  color:white;
   font-weight:bold;
-  cursor:pointer;
 }
 textarea{
-  height:420px;
-  background:#111;
+  height:220px;
+  background:#1b1b25;
   color:#00ffcc;
+}
+.section{
+  margin-top:20px;
+  background:#1a1a22;
+  padding:15px;
+  border-radius:12px;
 }
 </style>
 </head>
 <body>
 
-<h1>🔥 Stable PRO v6 – Thai Chart AI Strategy Engine (Global Upgrade)</h1>
+<h1>🎵 DNA Adaptive Engine – PRO v3</h1>
 
-<input type="text" id="artist" placeholder="ใส่ชื่อศิลปิน / Artist Name">
+<input id="reference" placeholder="Singer / Song Reference">
 
-<select id="genre">
-<option>Thai Pop</option>
-<option>อีสานอินดี้</option>
-<option>ลูกทุ่ง</option>
-<option>สามช่า</option>
-<option>Thai R&B</option>
-<option>Indie Folk</option>
-<option>Global Pop</option>
-<option>US-UK Chart</option>
+<select id="gender">
+<option>Male</option>
+<option>Female</option>
 </select>
 
-<select id="mood">
-<option>Empower</option>
-<option>Romantic</option>
-<option>Sad</option>
-<option>Festival</option>
-<option>Chill</option>
-<option>Viral Dance</option>
+<select id="language">
+<option>English</option>
+<option>Thai</option>
 </select>
 
-<button onclick="generate()">🚀 Run Thai Chart AI Engine</button>
+<button onclick="generateSong()">Generate Adaptive Song (4-5 min)</button>
 
-<textarea id="result" readonly></textarea>
+<div class="section">
+<h3>Song Title</h3>
+<textarea id="title"></textarea>
+</div>
+
+<div class="section">
+<h3>Suno Production Prompt</h3>
+<textarea id="style"></textarea>
+</div>
+
+<div class="section">
+<h3>Full Lyrics</h3>
+<textarea id="lyrics"></textarea>
+</div>
 
 <script>
-function isThai(text){
-  return /[ก-๙]/.test(text);
-}
 
-function rand(arr){
-  return arr[Math.floor(Math.random()*arr.length)];
-}
+function generateSong(){
 
-function generate(){
+  const ref = document.getElementById("reference").value || "Pop Reference";
+  const gender = document.getElementById("gender").value;
+  const lang = document.getElementById("language").value;
 
-let artist=document.getElementById("artist").value || "Unknown Artist";
-let genre=document.getElementById("genre").value;
-let mood=document.getElementById("mood").value;
+  let title, verse1, verse2, pre, chorus, bridge;
 
-let market=isThai(artist)?"Thailand":"Global";
+  if(lang === "Thai"){
 
-let bpm=rand([90,95,100,105,110,120,128]);
+    title = "คืนที่เสียงหัวใจชัดเจน";
 
-let hookTH=[
-"คืนนี้ใจมันเรียกหาเธอ",
-"รักเธอซ้ำ ๆ ไม่เคยพอ",
-"หัวใจมันเต้นไม่หยุดเลย",
-"เธอทำให้โลกหมุนช้าลง"
-];
+    verse1 =
+`ฉันเดินอยู่กลางเมืองที่ไม่หลับใหล
+แสงไฟพาใจลอยไปไกล
+ทุกความฝันยังคงส่องทาง
+แม้คืนจะยาวเท่าไร`;
 
-let hookINT=[
-"We run the night forever",
-"Can't stop falling again",
-"Love hits harder tonight",
-"Dancing under city lights"
-];
+    verse2 =
+`วันที่ใจเคยอ่อนล้า
+กลายเป็นแรงให้ก้าวไป
+จากความเงียบในหัวใจ
+วันนี้มันดังเกินใคร`;
 
-let hook=market==="Thailand"?rand(hookTH):rand(hookINT);
+    pre =
+`ยิ่งใกล้ยิ่งรู้สึก
+ว่าชีวิตกำลังเปลี่ยนไป`;
 
-let hitScore=Math.floor(Math.random()*15)+85;
+    chorus =
+`${title}
+เรายังมีไฟในหัวใจ
+${title}
+ไม่ว่าโลกจะหมุนเท่าไร
+จะยืนอยู่ตรงนี้ไม่ไปไหน`;
 
-let platformTarget=
-market==="Thailand"
-?"Spotify Thailand / Joox / TikTok TH"
-:"Spotify Global / Apple Music / Billboard";
+    bridge =
+`แม้ความมืดจะโอบล้อม
+เราจะไม่ยอมแพ้
+เสียงหัวใจจะนำทาง
+ไปสู่วันใหม่`;
 
-let viralLevel=
-hitScore>92?"🔥 High Viral Potential":"⚡ Medium-High Viral";
+  }else{
 
-document.getElementById("result").value=
-`🎵 STABLE PRO v6 – Thai Chart Strategy Report
+    title = "Heartbeat Revolution";
 
-ARTIST: ${artist}
-MARKET: ${market}
-GENRE: ${genre}
-MOOD: ${mood}
-BPM: ${bpm}
+    verse1 =
+`Walking through a restless skyline
+Neon burning in my eyes
+Every echo feels like destiny
+Calling me to rise`;
 
-📊 HIT SCORE: ${hitScore}%
-${viralLevel}
+    verse2 =
+`Every scar became a lesson
+Every fall became a spark
+Now I'm stronger than the silence
+Lighting up the dark`;
 
-🎯 TARGET PLATFORM:
-${platformTarget}
+    pre =
+`Every step is getting closer
+Feel the fire inside`;
 
-🎟 TOUR FIT:
-${genre.includes("สามช่า")?"Festival Outdoor Stage":
-genre.includes("ลูกทุ่ง")?"Provincial Concert Tour":
-"City Arena Tour"}
+    chorus =
+`${title}
+We are rising through the flame
+${title}
+Nothing's ever gonna be the same
+Higher, higher we ignite`;
 
-🏆 CHART TARGET:
-${market==="Thailand"?"T-POP Top 50":"Billboard / UK Top 40"}
+    bridge =
+`When the world goes quiet
+And the lights fade low
+Hear the echo of our undertow
+We rise again`;
 
------ 12s TIKTOK HOOK -----
-${hook}
-${hook}
+  }
 
------ SONG CORE -----
+  const fullLyrics =
+`[Intro – 8 Bars]
 
-[Verse]
-${market==="Thailand"
-?"หัวใจมันเต้นไม่เป็นจังหวะ เมื่อเธอเดินเข้ามา"
-:"Heartbeat racing out of time when you step into my light"}
+[Verse 1]
+${verse1}
 
 [Pre-Chorus]
-${market==="Thailand"
-?"เหมือนโลกหยุดหมุนตอนเธอมองตา"
-:"The world slows down when you look at me"}
+${pre}
 
 [Chorus]
-${hook}
-${hook}
+${chorus}
 
-🔥 AI STRATEGY MODE: GLOBAL UPGRADE ACTIVE`;
+[Verse 2]
+${verse2}
+
+[Pre-Chorus]
+${pre}
+
+[Chorus x2]
+${chorus}
+
+[Bridge]
+${bridge}
+
+[Final Chorus – Big Lift]
+${chorus}
+(Adlibs & layered harmonies fade out)`;
+
+  const stylePrompt =
+`Singer/Song Reference: ${ref}
+Vocal Gender: ${gender}
+Language: ${lang}
+
+Length Target: 4–5 Minutes
+Structure:
+Intro – V1 – Pre – Chorus – V2 – Pre – Chorus x2 – Bridge – Final Chorus
+
+Production:
+• Strong melodic hook
+• Dynamic chorus lift
+• Wide stereo imaging
+• Layered harmonies
+• Clean vocal upfront
+• World-class commercial mix`;
+
+  document.getElementById("title").value = title;
+  document.getElementById("style").value = stylePrompt;
+  document.getElementById("lyrics").value = fullLyrics;
 }
+
 </script>
 
 </body>
