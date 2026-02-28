@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DNA Song Generator PRO v3</title>
+<title>DNA Smart Analyzer v4</title>
 
 <style>
 body{
@@ -22,7 +22,6 @@ input,select,button,textarea{
 button{
   background:#ff0077;
   color:white;
-  color:white;
   font-weight:bold;
 }
 textarea{
@@ -40,21 +39,15 @@ textarea{
 </head>
 <body>
 
-<h1>🎵 DNA Adaptive Engine – PRO v3</h1>
+<h1>🎵 Smart DNA Analyzer – PRO v4</h1>
 
 <input id="reference" placeholder="Singer / Song Reference">
-
 <select id="gender">
 <option>Male</option>
 <option>Female</option>
 </select>
 
-<select id="language">
-<option>English</option>
-<option>Thai</option>
-</select>
-
-<button onclick="generateSong()">Generate Adaptive Song (4-5 min)</button>
+<button onclick="generateSong()">Generate Smart DNA Song</button>
 
 <div class="section">
 <h3>Song Title</h3>
@@ -73,84 +66,87 @@ textarea{
 
 <script>
 
+function detectStyle(ref){
+  ref = ref.toLowerCase();
+
+  if(ref.includes("70") || ref.includes("disco") || ref.includes("bee"))
+    return "70s Disco Groove";
+  if(ref.includes("80") || ref.includes("synth"))
+    return "80s Synth Pop";
+  if(ref.includes("indie"))
+    return "Indie Emotional";
+  if(/[ก-๙]/.test(ref))
+    return "Thai Modern Pop";
+
+  return "Modern Pop Anthem";
+}
+
 function generateSong(){
 
-  const ref = document.getElementById("reference").value || "Pop Reference";
+  const ref = document.getElementById("reference").value || "Modern Pop";
   const gender = document.getElementById("gender").value;
-  const lang = document.getElementById("language").value;
+  const styleDNA = detectStyle(ref);
 
-  let title, verse1, verse2, pre, chorus, bridge;
+  let title = "Neon Firelight";
+  let verse1, verse2, chorus, bridge, pre;
 
-  if(lang === "Thai"){
+  if(styleDNA === "Thai Modern Pop"){
 
-    title = "คืนที่เสียงหัวใจชัดเจน";
+    title = "แสงไฟในคืนยาว";
 
     verse1 =
-`ฉันเดินอยู่กลางเมืองที่ไม่หลับใหล
-แสงไฟพาใจลอยไปไกล
-ทุกความฝันยังคงส่องทาง
-แม้คืนจะยาวเท่าไร`;
+`ท่ามกลางคืนที่วุ่นวาย
+เสียงหัวใจยังดังอยู่
+แม้โลกหมุนไปไกล
+เรายังยืนตรงนี้`;
 
     verse2 =
-`วันที่ใจเคยอ่อนล้า
-กลายเป็นแรงให้ก้าวไป
-จากความเงียบในหัวใจ
-วันนี้มันดังเกินใคร`;
+`จากวันที่เคยอ่อนแรง
+กลายเป็นแรงให้ก้าวเดิน
+ทุกหยดน้ำตาที่ไหล
+วันนี้กลายเป็นพลัง`;
 
-    pre =
-`ยิ่งใกล้ยิ่งรู้สึก
-ว่าชีวิตกำลังเปลี่ยนไป`;
+    pre = `ยิ่งใกล้ยิ่งรู้ ว่าเราต้องไปต่อ`;
 
     chorus =
 `${title}
-เรายังมีไฟในหัวใจ
-${title}
-ไม่ว่าโลกจะหมุนเท่าไร
-จะยืนอยู่ตรงนี้ไม่ไปไหน`;
-
-    bridge =
-`แม้ความมืดจะโอบล้อม
 เราจะไม่ยอมแพ้
-เสียงหัวใจจะนำทาง
-ไปสู่วันใหม่`;
+${title}
+แม้ความมืดจะโอบล้อม`;
 
-  }else{
+    bridge =
+`เมื่อทุกอย่างเงียบลง
+เสียงหัวใจจะชัดเจน`;
 
-    title = "Heartbeat Revolution";
+  } else {
 
     verse1 =
-`Walking through a restless skyline
-Neon burning in my eyes
-Every echo feels like destiny
-Calling me to rise`;
+`City lights are moving faster
+Heartbeat in overdrive
+Shadows dancing on the ceiling
+Feel the rhythm come alive`;
 
     verse2 =
-`Every scar became a lesson
-Every fall became a spark
-Now I'm stronger than the silence
-Lighting up the dark`;
+`Every fall became momentum
+Every scar became design
+Now the silence can't control us
+We are crossing every line`;
 
-    pre =
-`Every step is getting closer
-Feel the fire inside`;
+    pre = `Feel the tension rising higher`;
 
     chorus =
 `${title}
-We are rising through the flame
+We ignite the darkest sky
 ${title}
-Nothing's ever gonna be the same
-Higher, higher we ignite`;
+We are born to amplify`;
 
     bridge =
-`When the world goes quiet
-And the lights fade low
-Hear the echo of our undertow
-We rise again`;
-
+`When the music drops to silence
+We still hear it in our veins`;
   }
 
-  const fullLyrics =
-`[Intro – 8 Bars]
+  const lyrics =
+`[Intro – Style: ${styleDNA}]
 
 [Verse 1]
 ${verse1}
@@ -165,38 +161,36 @@ ${chorus}
 ${verse2}
 
 [Pre-Chorus]
-${pre}
 
 [Chorus x2]
 ${chorus}
 
-[Bridge]
+[Bridge – Dynamic Shift]
 ${bridge}
 
 [Final Chorus – Big Lift]
 ${chorus}
-(Adlibs & layered harmonies fade out)`;
+(Extended harmonies fade out)`;
 
-  const stylePrompt =
+  const prompt =
 `Singer/Song Reference: ${ref}
+Detected DNA Style: ${styleDNA}
 Vocal Gender: ${gender}
-Language: ${lang}
 
-Length Target: 4–5 Minutes
-Structure:
-Intro – V1 – Pre – Chorus – V2 – Pre – Chorus x2 – Bridge – Final Chorus
+Length: 4–5 Minutes
+Structure: Intro – V1 – Pre – Chorus – V2 – Pre – Chorus x2 – Bridge – Final Chorus
 
-Production:
-• Strong melodic hook
-• Dynamic chorus lift
-• Wide stereo imaging
+Production Direction:
+• Genre-authentic groove
+• Chorus lift expansion
 • Layered harmonies
-• Clean vocal upfront
-• World-class commercial mix`;
+• Wide stereo field
+• Commercial radio-ready mix
+• Headphone & Speaker optimized`;
 
   document.getElementById("title").value = title;
-  document.getElementById("style").value = stylePrompt;
-  document.getElementById("lyrics").value = fullLyrics;
+  document.getElementById("style").value = prompt;
+  document.getElementById("lyrics").value = lyrics;
 }
 
 </script>
