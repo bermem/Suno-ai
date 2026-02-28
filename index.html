@@ -1,91 +1,115 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>STABLE v12 – AI Music Empire</title>
-  <style>
-    body {
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 40px;
-    }
-    input, select, button, textarea {
-      width: 90%;
-      max-width: 600px;
-      margin: 10px 0;
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-    }
-    button {
-      background: #00ff88;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    textarea {
-      height: 400px;
-      background: #111;
-      color: #00ff88;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Stable PRO v6 – Thai Chart AI Strategy Engine</title>
+<style>
+body{
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  font-family: Arial, sans-serif;
+  color:white;
+  text-align:center;
+  padding:30px;
+}
+h1{font-size:28px;}
+input,select,button,textarea{
+  width:90%;
+  max-width:650px;
+  padding:12px;
+  margin:10px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+}
+button{
+  background:#00ffcc;
+  font-weight:bold;
+  cursor:pointer;
+}
+textarea{
+  height:420px;
+  background:#111;
+  color:#00ffcc;
+}
+</style>
 </head>
 <body>
 
-<h1>🔥 STABLE v12 – AI Music Empire</h1>
+<h1>🔥 Stable PRO v6 – Thai Chart AI Strategy Engine (Global Upgrade)</h1>
 
-<input type="text" id="artist" placeholder="Enter Artist Name">
+<input type="text" id="artist" placeholder="ใส่ชื่อศิลปิน / Artist Name">
 
 <select id="genre">
-  <option>Pop</option>
-  <option>RnB</option>
-  <option>Indie</option>
-  <option>EDM</option>
-  <option>ลูกทุ่ง</option>
-  <option>อีสานอินดี้</option>
+<option>Thai Pop</option>
+<option>อีสานอินดี้</option>
+<option>ลูกทุ่ง</option>
+<option>สามช่า</option>
+<option>Thai R&B</option>
+<option>Indie Folk</option>
+<option>Global Pop</option>
+<option>US-UK Chart</option>
 </select>
 
 <select id="mood">
-  <option>Empower</option>
-  <option>Sad</option>
-  <option>Romantic</option>
-  <option>Festival</option>
-  <option>Chill</option>
+<option>Empower</option>
+<option>Romantic</option>
+<option>Sad</option>
+<option>Festival</option>
+<option>Chill</option>
+<option>Viral Dance</option>
 </select>
 
-<button onclick="generate()">🚀 Launch AI Music Empire</button>
+<button onclick="generate()">🚀 Run Thai Chart AI Engine</button>
 
 <textarea id="result" readonly></textarea>
 
 <script>
-function detectMarket(name) {
-  const thaiRegex = /[ก-๙]/;
-  return thaiRegex.test(name) ? "Thailand" : "Global";
+function isThai(text){
+  return /[ก-๙]/.test(text);
 }
 
-function randomFrom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+function rand(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
 }
 
-function generate() {
-  const artist = document.getElementById("artist").value || "Unknown";
-  const genre = document.getElementById("genre").value;
-  const mood = document.getElementById("mood").value;
+function generate(){
 
-  const market = detectMarket(artist);
-  const bpm = randomFrom([90, 100, 110, 120, 128]);
+let artist=document.getElementById("artist").value || "Unknown Artist";
+let genre=document.getElementById("genre").value;
+let mood=document.getElementById("mood").value;
 
-  const hookTH = ["รักเธอซ้ำ ๆ ไม่เคยพอ","คืนนี้หัวใจมันเรียกหา","ตกหลุมรักอีกแล้ว"];
-  const hookINT = ["We run the night forever","Can’t stop falling again","Love hits harder tonight"];
+let market=isThai(artist)?"Thailand":"Global";
 
-  const hook = market === "Thailand" ? randomFrom(hookTH) : randomFrom(hookINT);
+let bpm=rand([90,95,100,105,110,120,128]);
 
-  const score = Math.floor(Math.random() * 15) + 85;
+let hookTH=[
+"คืนนี้ใจมันเรียกหาเธอ",
+"รักเธอซ้ำ ๆ ไม่เคยพอ",
+"หัวใจมันเต้นไม่หยุดเลย",
+"เธอทำให้โลกหมุนช้าลง"
+];
 
-  document.getElementById("result").value =
-`🔥 STABLE v12 – AI MUSIC EMPIRE
+let hookINT=[
+"We run the night forever",
+"Can't stop falling again",
+"Love hits harder tonight",
+"Dancing under city lights"
+];
+
+let hook=market==="Thailand"?rand(hookTH):rand(hookINT);
+
+let hitScore=Math.floor(Math.random()*15)+85;
+
+let platformTarget=
+market==="Thailand"
+?"Spotify Thailand / Joox / TikTok TH"
+:"Spotify Global / Apple Music / Billboard";
+
+let viralLevel=
+hitScore>92?"🔥 High Viral Potential":"⚡ Medium-High Viral";
+
+document.getElementById("result").value=
+`🎵 STABLE PRO v6 – Thai Chart Strategy Report
 
 ARTIST: ${artist}
 MARKET: ${market}
@@ -93,25 +117,41 @@ GENRE: ${genre}
 MOOD: ${mood}
 BPM: ${bpm}
 
-🎯 HIT SCORE: ${score}%
-📈 VIRAL POTENTIAL: ${score > 92 ? "High" : "Medium-High"}
+📊 HIT SCORE: ${hitScore}%
+${viralLevel}
 
-🎟 TOUR FIT: ${genre === "EDM" ? "Festival Mainstage" : "Arena Tour"}
-🏆 AWARD INDEX: ${score > 93 ? "Major Award Tier" : "Nomination Tier"}
+🎯 TARGET PLATFORM:
+${platformTarget}
 
------ TIKTOK HOOK -----
+🎟 TOUR FIT:
+${genre.includes("สามช่า")?"Festival Outdoor Stage":
+genre.includes("ลูกทุ่ง")?"Provincial Concert Tour":
+"City Arena Tour"}
+
+🏆 CHART TARGET:
+${market==="Thailand"?"T-POP Top 50":"Billboard / UK Top 40"}
+
+----- 12s TIKTOK HOOK -----
 ${hook}
 ${hook}
 
 ----- SONG CORE -----
 
 [Verse]
-${market === "Thailand" ? "หัวใจมันเต้นไม่เป็นจังหวะ เมื่อเธอเดินเข้ามา" : "Heartbeat racing out of time when you step into my light"}
+${market==="Thailand"
+?"หัวใจมันเต้นไม่เป็นจังหวะ เมื่อเธอเดินเข้ามา"
+:"Heartbeat racing out of time when you step into my light"}
+
+[Pre-Chorus]
+${market==="Thailand"
+?"เหมือนโลกหยุดหมุนตอนเธอมองตา"
+:"The world slows down when you look at me"}
 
 [Chorus]
 ${hook}
+${hook}
 
-🌍 EMPIRE STATUS: GLOBAL EXPANSION MODE ACTIVE`;
+🔥 AI STRATEGY MODE: GLOBAL UPGRADE ACTIVE`;
 }
 </script>
 
