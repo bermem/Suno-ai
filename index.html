@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Commercial Hit AI v5</title>
+<title>DNA Smart Analyzer v4</title>
 
 <style>
 body{
@@ -25,7 +25,7 @@ button{
   font-weight:bold;
 }
 textarea{
-  height:230px;
+  height:220px;
   background:#1b1b25;
   color:#00ffcc;
 }
@@ -39,25 +39,15 @@ textarea{
 </head>
 <body>
 
-<h1>🎵 Commercial Hit AI – PRO v5</h1>
+<h1>🎵 Smart DNA Analyzer – PRO v4</h1>
 
 <input id="reference" placeholder="Singer / Song Reference">
-
-<select id="market">
-<option>T-Pop Mainstream</option>
-<option>Thai Indie</option>
-<option>Esan Indie</option>
-<option>Lukkrung</option>
-<option>Lukthung</option>
-<option>GMM Commercial</option>
-</select>
-
 <select id="gender">
 <option>Male</option>
 <option>Female</option>
 </select>
 
-<button onclick="generateSong()">Generate Thai Market Hit</button>
+<button onclick="generateSong()">Generate Smart DNA Song</button>
 
 <div class="section">
 <h3>Song Title</h3>
@@ -70,76 +60,93 @@ textarea{
 </div>
 
 <div class="section">
-<h3>Full Lyrics (4-5 Min)</h3>
+<h3>Full Lyrics</h3>
 <textarea id="lyrics"></textarea>
 </div>
 
 <script>
 
+function detectStyle(ref){
+  ref = ref.toLowerCase();
+
+  if(ref.includes("70") || ref.includes("disco") || ref.includes("bee"))
+    return "70s Disco Groove";
+  if(ref.includes("80") || ref.includes("synth"))
+    return "80s Synth Pop";
+  if(ref.includes("indie"))
+    return "Indie Emotional";
+  if(/[ก-๙]/.test(ref))
+    return "Thai Modern Pop";
+
+  return "Modern Pop Anthem";
+}
+
 function generateSong(){
 
-  const ref = document.getElementById("reference").value || "Thai Pop";
-  const market = document.getElementById("market").value;
+  const ref = document.getElementById("reference").value || "Modern Pop";
   const gender = document.getElementById("gender").value;
+  const styleDNA = detectStyle(ref);
 
-  let title, verse1, verse2, chorus, bridge, pre;
+  let title = "Neon Firelight";
+  let verse1, verse2, chorus, bridge, pre;
 
-  if(market === "Thai Indie"){
-    title = "คืนที่เราเงียบงัน";
-    verse1 = "เรานั่งฟังเสียงฝนตกเบาๆ\nในห้องที่ยังมีเงาเธอ";
-    verse2 = "ทุกความทรงจำยังค้างอยู่\nในเพลงที่เราเคยฟัง";
-    pre = "บางทีความรักก็เป็นแค่ช่วงเวลา";
-    chorus = `${title}\nเรายังคิดถึงกันไหม\n${title}\nแม้วันนี้ไม่เหมือนเดิม`;
-    bridge = "ถ้าหากวันนั้นเรากล้ากว่านี้";
-  }
+  if(styleDNA === "Thai Modern Pop"){
 
-  else if(market === "Esan Indie"){
-    title = "ฮักเจ้าบ่ลืม";
-    verse1 = "คืนลมหนาวพัดมาอีกครั้ง\nหัวใจอ้ายยังคิดฮอด";
-    verse2 = "แม่นว่าเจ้าสิไปไกล\nแต่อ้ายบ่เคยลืม";
-    pre = "เสียงแคนยังดังในใจ";
-    chorus = `${title}\nคำว่าฮักยังอยู่เสมอ\n${title}\nบ่มีวันจางหาย`;
-    bridge = "ถึงสิเหงาแค่ใด ใจอ้ายยังมั่นคง";
-  }
+    title = "แสงไฟในคืนยาว";
 
-  else if(market === "Lukkrung"){
-    title = "ใต้แสงจันทร์";
-    verse1 = "ใต้แสงจันทร์อันนวลผ่อง\nสองเราครองคำสัญญา";
-    verse2 = "แม้กาลเวลาจะผันผ่าน\nรักยังมั่นในดวงใจ";
-    pre = "โอ้ความรักอันแสนหวาน";
-    chorus = `${title}\nดั่งบทเพลงแห่งนิรันดร์\n${title}\nตราตรึงในวิญญาณ`;
-    bridge = "ขอเพียงเธออยู่เคียงข้าง";
-  }
+    verse1 =
+`ท่ามกลางคืนที่วุ่นวาย
+เสียงหัวใจยังดังอยู่
+แม้โลกหมุนไปไกล
+เรายังยืนตรงนี้`;
 
-  else if(market === "Lukthung"){
-    title = "คิดฮอดบ้านเฮา";
-    verse1 = "เสียงลมทุ่งพัดผ่านใจ\nคิดฮอดบ้านเฮาหลาย";
-    verse2 = "จากบ้านมาทำงานไกล\nใจยังห่วงนา";
-    pre = "เหงาแค่ไหนก็ต้องสู้";
-    chorus = `${title}\nหัวใจยังอยู่บ้านนา\n${title}\nฝันไว้วันกลับมา`;
-    bridge = "แม้เหนื่อยก็ยังยิ้มได้";
-  }
+    verse2 =
+`จากวันที่เคยอ่อนแรง
+กลายเป็นแรงให้ก้าวเดิน
+ทุกหยดน้ำตาที่ไหล
+วันนี้กลายเป็นพลัง`;
 
-  else if(market === "GMM Commercial"){
-    title = "ไม่ยอมแพ้หัวใจ";
-    verse1 = "แม้วันที่โลกไม่เป็นใจ\nฉันยังยืนอยู่ตรงนี้";
-    verse2 = "ทุกความผิดหวังที่ผ่านมา\nสอนให้ฉันเข้มแข็ง";
-    pre = "ไม่มีอะไรหยุดเราได้";
-    chorus = `${title}\nเราจะไปให้ถึงฝัน\n${title}\nไม่ว่าวันไหน`;
-    bridge = "แสงไฟกำลังส่องทาง";
-  }
+    pre = `ยิ่งใกล้ยิ่งรู้ ว่าเราต้องไปต่อ`;
 
-  else { // T-Pop
-    title = "คืนนี้เราจะจำ";
-    verse1 = "แสงไฟส่องประกายทั่วเมือง\nเสียงหัวใจเต้นแรง";
-    verse2 = "ทุกวินาทีมีค่า\nเราจะไม่ปล่อยไป";
-    pre = "ให้จังหวะพาเราไป";
-    chorus = `${title}\nช่วงเวลาที่สวยงาม\n${title}\nไม่มีวันเลือนหาย`;
-    bridge = "ปล่อยให้เสียงเพลงดังขึ้น";
+    chorus =
+`${title}
+เราจะไม่ยอมแพ้
+${title}
+แม้ความมืดจะโอบล้อม`;
+
+    bridge =
+`เมื่อทุกอย่างเงียบลง
+เสียงหัวใจจะชัดเจน`;
+
+  } else {
+
+    verse1 =
+`City lights are moving faster
+Heartbeat in overdrive
+Shadows dancing on the ceiling
+Feel the rhythm come alive`;
+
+    verse2 =
+`Every fall became momentum
+Every scar became design
+Now the silence can't control us
+We are crossing every line`;
+
+    pre = `Feel the tension rising higher`;
+
+    chorus =
+`${title}
+We ignite the darkest sky
+${title}
+We are born to amplify`;
+
+    bridge =
+`When the music drops to silence
+We still hear it in our veins`;
   }
 
   const lyrics =
-`[Intro]
+`[Intro – Style: ${styleDNA}]
 
 [Verse 1]
 ${verse1}
@@ -158,29 +165,28 @@ ${verse2}
 [Chorus x2]
 ${chorus}
 
-[Bridge]
+[Bridge – Dynamic Shift]
 ${bridge}
 
-[Final Chorus]
+[Final Chorus – Big Lift]
 ${chorus}
-(Outro fade)`;
+(Extended harmonies fade out)`;
 
   const prompt =
 `Singer/Song Reference: ${ref}
-Target Market: ${market}
+Detected DNA Style: ${styleDNA}
 Vocal Gender: ${gender}
 
 Length: 4–5 Minutes
-Commercial Structure Optimized
-Radio Friendly Hook
-Streaming Platform Ready
+Structure: Intro – V1 – Pre – Chorus – V2 – Pre – Chorus x2 – Bridge – Final Chorus
 
-Production:
-• Strong memorable chorus
-• Market-authentic instrumentation
-• Clean vocal upfront
-• Wide stereo imaging
-• Commercial mastering loudness`;
+Production Direction:
+• Genre-authentic groove
+• Chorus lift expansion
+• Layered harmonies
+• Wide stereo field
+• Commercial radio-ready mix
+• Headphone & Speaker optimized`;
 
   document.getElementById("title").value = title;
   document.getElementById("style").value = prompt;
