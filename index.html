@@ -1,0 +1,108 @@
+import { useState } from "react"; import { Card, CardContent } from "@/components/ui/card"; import { Button } from "@/components/ui/button"; import { Input } from "@/components/ui/input"; import { Textarea } from "@/components/ui/textarea"; import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"; import { motion } from "framer-motion";
+
+function detectMarket(name) { if (!name) return "TH"; const thaiRegex = /[ก-๙]/; return thaiRegex.test(name) ? "TH" : "INT"; }
+
+function randomFrom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function getBPM(market, genre) { const map = { Pop: market === "TH" ? [90, 100, 110] : [110, 120, 128], RnB: market === "TH" ? [72, 80, 88] : [85, 95, 105], Indie: market === "TH" ? [78, 92] : [100, 115], EDM: market === "TH" ? [100, 128] : [124, 130], LukThung: [88, 95, 105], IsanIndie: [90, 100] }; return randomFrom(map[genre] || [100]); }
+
+function generateHook(market) { const thai = [ "รักเธอซ้ำ ๆ ไม่เคยพอ", "คืนนี้หัวใจมันเรียกหา", "ตกหลุมรักอีกแล้ว" ]; const inter = [ "We run the night forever", "Can’t stop falling again", "Love hits harder tonight" ]; const hook = randomFrom(market === "TH" ? thai : inter); return ${hook}\n${hook}; }
+
+function hitScore(bpm, genre) { let score = 80; if (bpm >= 100 && bpm <= 128) score += 6; if (["Pop", "EDM"].includes(genre)) score += 7; if (genre === "RnB") score += 5; return Math.min(score, 100); }
+
+function revenueProjection(score) { const base = score * 50000; return { streams: ${(base / 1000).toFixed(0)}K - ${(base / 500).toFixed(0)}K streams , revenue: $${(base * 0.003).toFixed(0)} - $${(base * 0.006).toFixed(0)} }; }
+
+export default function StableProV12MusicEmpire() { const [artist, setArtist] = useState(""); const [genre, setGenre] = useState("Pop"); const [mood, setMood] = useState("Empower"); const [result, setResult] = useState("");
+
+const generateEmpire = () => { const market = detectMarket(artist); const bpm = getBPM(market, genre); const hook = generateHook(market); const score = hitScore(bpm, genre); const revenue = revenueProjection(score);
+
+const output = `🔥 STABLE v12 – AI MUSIC EMPIRE
+
+ARTIST: ${artist || "Unknown"} MARKET: ${market === "TH" ? "Thailand" : "Global"} GENRE: ${genre} MOOD: ${mood} BPM: ${bpm} STREAM LENGTH TARGET: 2:40 – 3:10
+
+🎯 HIT SCORE: ${score}% 📈 VIRAL POTENTIAL: ${score > 90 ? "High" : "Medium-High"}
+
+💰 STREAM PROJECTION: ${revenue.streams} 💵 REVENUE ESTIMATE: ${revenue.revenue}
+
+🎟 TOUR / FESTIVAL FIT: ${genre === "EDM" ? "Festival Mainstage" : genre === "Pop" ? "Arena Tour" : "Club / Live House"} 🏆 AWARD POTENTIAL INDEX: ${score > 92 ? "Major Award Tier" : "Nomination Tier"}
+
+----- TIKTOK 12s HOOK ----- ${hook}
+
+----- GLOBAL PLAYLIST TARGET ----- ${market === "TH" ? "Thai Viral 50 / T-POP Now" : "Global Viral 50 / Pop Rising"}
+
+----- ALBUM STRATEGY MODE -----
+
+Track 1: Viral Opener
+
+Track 2: Emotional Replay Track
+
+Track 3: TikTok Hook Song
+
+Track 4: Live Performance Anthem
+
+Track 5: Acoustic Version
+
+
+----- SONG CORE -----
+
+[Verse] ${market === "TH" ? "หัวใจมันเต้นไม่เป็นจังหวะ เมื่อเธอเดินเข้ามา" : "Heartbeat racing out of time when you step into my light"}
+
+[Chorus] ${hook}
+
+🌍 EMPIRE STATUS: GLOBAL EXPANSION MODE ACTIVE`;
+
+setResult(output);
+
+};
+
+return ( <div className="min-h-screen bg-black text-white grid place-items-center p-6"> <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}> <Card className="w-full max-w-2xl bg-zinc-950 rounded-2xl shadow-2xl border border-zinc-800"> <CardContent className="p-6 space-y-6"> <h1 className="text-2xl font-bold text-center"> STABLE v12 – AI Music Empire </h1>
+
+<Input
+          placeholder="Enter Artist Name"
+          value={artist}
+          onChange={(e) => setArtist(e.target.value)}
+        />
+
+        <Select onValueChange={setGenre} defaultValue="Pop">
+          <SelectTrigger>
+            <SelectValue placeholder="Select Genre" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Pop">Pop</SelectItem>
+            <SelectItem value="RnB">R&B</SelectItem>
+            <SelectItem value="Indie">Indie</SelectItem>
+            <SelectItem value="EDM">EDM</SelectItem>
+            <SelectItem value="LukThung">ลูกทุ่ง</SelectItem>
+            <SelectItem value="IsanIndie">อีสานอินดี้</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select onValueChange={setMood} defaultValue="Empower">
+          <SelectTrigger>
+            <SelectValue placeholder="Select Mood" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Empower">Empower</SelectItem>
+            <SelectItem value="Sad">Sad</SelectItem>
+            <SelectItem value="Romantic">Romantic</SelectItem>
+            <SelectItem value="Festival">Festival</SelectItem>
+            <SelectItem value="Chill">Chill</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Button onClick={generateEmpire} className="w-full text-lg py-6">
+          🚀 Launch AI Music Empire
+        </Button>
+
+        <Textarea
+          value={result}
+          readOnly
+          rows={36}
+          className="bg-black text-green-400 font-mono"
+        />
+      </CardContent>
+    </Card>
+  </motion.div>
+</div>
+
+); }
